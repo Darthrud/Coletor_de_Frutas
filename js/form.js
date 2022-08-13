@@ -1,9 +1,10 @@
-class Form{
+cclass Form{
     constructor(){
-       this.input = createInput("Nome");
+       this.input = createInput("Name");
        this.button = createButton('Play');
        this.greeting = createElement('h2');
        this.title = createElement('h2');
+       this.reset = createButton('Reset');
     }
     hide() {
         this.greeting.hide();
@@ -12,7 +13,7 @@ class Form{
         this.title.hide();
     }
     display() {
-        this.title.html("APANHADOR DE FRUTAS");
+        this.title.html("FRUIT CATCHER");
         this.title.position(350, 50);
         this.title.style('font-size', '70px');
         this.title.style('color', 'skyblue');
@@ -24,7 +25,10 @@ class Form{
         this.button.style('width', '200px');
         this.button.style('height', '40px');
         this.button.style('background', 'lightpink');
-        
+        this.reset.position(900, 660);
+        this.reset.style('width', '100px');
+        this.reset.style('height', '30px');
+        this.reset.style('background', 'lightpink');
 
         this.button.mousePressed(() => {
             this.input.hide();
@@ -34,13 +38,21 @@ class Form{
             player.index = playerCount;
             player.update();
             player.updateCount(playerCount);
-            this.greeting.html("Olá " + player.name)
+            this.greeting.html("Hello " + player.name)
             this.greeting.position(400,250);
             this.greeting.style('color', 'white');
             this.greeting.style('font-size', '100px');
         });
 
-       
+        this.reset.mousePressed(() => {
+
+            game.update(0)
+            player.updateCount(0)
+            
+            var playerInfoRef=database.ref('players')
+            playerInfoRef.remove()
+
+        });
 
     }
 }
