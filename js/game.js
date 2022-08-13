@@ -27,10 +27,10 @@ class Game{
                 form.display();
             }
     player1 = createSprite(200,500);
-    player1.addImage("jogador1",player_img);
+    player1.addImage("player1",player_img);
     
     player2 = createSprite(800,500);
-    player2.addImage("jogador2", player_img);
+    player2.addImage("player2", player_img);
     players=[player1,player2];
 
         }
@@ -40,7 +40,6 @@ class Game{
                 form.hide();
 
                 Player.getPlayerInfo();
-                player.getPlayerAtEnd();
                  image(back_img, 0, 0, 1000, 800);
                  var x =100;
                  var y=200;
@@ -58,30 +57,22 @@ class Game{
                        
                      if(index === player.index){
                          
-                         fill("black");
-                         textSize(25);
-                         text(allPlayers[plr].name ,x-25,y+25);
+                        textSize(20)
+                        fill("black")
+                     text(allPlayers[plr].name,x-30,y+25)
 
                          
                      }
+
+                     fill("white")
+                     textSize(20)
                     
-                         textSize(25);
-                         fill("white");
-                         text("Jogador 1 :" +allPlayers.player1.score,50,50);
-                        text("Jogador 2 :" + allPlayers.player2.score, 50, 100);
+                      text("Player 1: "+ allPlayers.player1.score,50,50)
+                      text("Player 2: "+ allPlayers.player2.score,50,80)
                  
                  }
                 
-                 if(player.score>=5){
-                    gameState = 2; 
-                    player.rank += 1;
-
-                    
-                    Player.updatePlayerAtEnd(player.rank);
-                    player.update();
-                    this.showRank();
-
-                }
+                
                  
 
                 if (keyIsDown(RIGHT_ARROW) && player.index !== null) {
@@ -114,15 +105,16 @@ class Game{
                  }
                  
                   if (player.index !== null) {
-                      for (var i = 0; i < fruitGroup.length; i++) {
-                          if (fruitGroup.get(i).isTouching(players)) {
-                              fruitGroup.get(i).destroy();
-                              player.score =player.score+1;
-                              player.update();
-                              
-                          }
-                          
-                      }
+                    for (var i = 0; i < fruitGroup.length; i++) {
+                        if (fruitGroup.get(i).isTouching(players)) {
+                            fruitGroup.get(i).destroy();
+                         
+                            player.score=player.score+1
+                            player.update()
+                            
+                        }
+                        
+                    }
                   }
                 
 
@@ -132,16 +124,8 @@ class Game{
          
 
     }
-    showRank() {
-        swal({
-            title: `Incrível!${"\n"}Lugar${"\n"}${player.rank}`,
-            text: "Você alcançou a linha de chegada com sucesso",
-            imageUrl:
-              "https://raw.githubusercontent.com/vishalgaddam873/p5-multiplayer-car-race-game/master/assets/cup.png",
-            imageSize: "100x100",
-            confirmButtonText: "Ok"
-          });
-        }
 
-
+    end(){
+       console.log("Game Ended");
+    }
 }
